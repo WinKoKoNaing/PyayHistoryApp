@@ -5,6 +5,7 @@
     package="com.techhousestudio.pyayhistory">
 
     <dist:module dist:instant="true" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"

@@ -3,22 +3,31 @@ package com.techhousestudio.pyayhistory.adapters;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.techhousestudio.pyayhistory.R;
 import com.techhousestudio.pyayhistory.models.Article;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Article> mValues;
+    private final List<Article> articleList;
 
     public ArticleRecyclerViewAdapter(List<Article> items) {
-        mValues = items;
+        articleList = items;
     }
 
     @NonNull
@@ -30,41 +39,41 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        holder.mItem = articleList.get(position);
+        holder.tvContent.setText(articleList.get(position).content);
+        holder.tvCategory.setText(articleList.get(position).category);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy");
+        holder.tvDateTime.setText(dateFormat.format(articleList.get(position).created_at));
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+
+        Glide.with(holder.itemView.getContext())
+                .load(articleList.get(position).imageUri)
+                .transform(new CenterCrop(), new RoundedCorners(20))
+                .into(holder.ivImageUri);
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return articleList.size();
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
-        final TextView mIdView;
-        final TextView mContentView;
+        TextView tvCategory, tvContent, tvDateTime;
+        ImageView ivImageUri;
         Article mItem;
 
         ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            tvCategory = view.findViewById(R.id.tvCategory);
+            tvContent = view.findViewById(R.id.tvContent);
+            tvDateTime = view.findViewById(R.id.tvDateTime);
+            ivImageUri = view.findViewById(R.id.ivArticleImage);
         }
 
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }
     }
 }
