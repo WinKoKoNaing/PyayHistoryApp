@@ -31,15 +31,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -57,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // init setup
         navigationView.setCheckedItem(R.id.nav_home);
         getSupportActionBar().setTitle("Home");
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer, ArticleListFragment.newInstance(1)).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragContainer, ArticleListFragment.newInstance(1)).commit();
 
 
         navigationView.setNavigationItemSelectedListener(this);

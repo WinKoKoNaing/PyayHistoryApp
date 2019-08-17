@@ -18,16 +18,15 @@ import com.techhousestudio.pyayhistory.adapters.ArticleRecyclerViewAdapter;
 import com.techhousestudio.pyayhistory.adapters.OnListFragmentInteractionListener;
 import com.techhousestudio.pyayhistory.models.Article;
 
-public class ArticleListFragment extends Fragment  {
+public class ArticleListFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+
 
     public ArticleListFragment() {
     }
 
-    @SuppressWarnings("unused")
     public static ArticleListFragment newInstance(int columnCount) {
         ArticleListFragment fragment = new ArticleListFragment();
         Bundle args = new Bundle();
@@ -51,21 +50,24 @@ public class ArticleListFragment extends Fragment  {
         View view = inflater.inflate(R.layout.fragment_article_list, container, false);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+        Context context = view.getContext();
+        RecyclerView articleList = (RecyclerView) view;
 
-            recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),1));
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new ArticleRecyclerViewAdapter(Article.articles));
+        articleList.addItemDecoration(new DividerItemDecoration(context, 1));
+
+
+        if (mColumnCount <= 1) {
+            articleList.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            articleList.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
+
+
+        articleList.setAdapter(new ArticleRecyclerViewAdapter(Article.articles));
+
+
         return view;
     }
-
 
 
 }
