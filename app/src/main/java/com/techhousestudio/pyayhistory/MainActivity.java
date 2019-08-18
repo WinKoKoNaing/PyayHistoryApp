@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // init setup
         navigationView.setCheckedItem(R.id.nav_home);
         getSupportActionBar().setTitle("Home");
-        getSupportFragmentManager().beginTransaction().add(R.id.fragContainer, ArticleListFragment.newInstance(1)).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer, ArticleListFragment.newInstance(1)).commit();
 
 
         navigationView.setNavigationItemSelectedListener(this);

@@ -5,12 +5,15 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.techhousestudio.pyayhistory.R;
+import com.techhousestudio.pyayhistory.database.ArticleAppDatabase;
 import com.techhousestudio.pyayhistory.models.Article;
 
 import java.text.SimpleDateFormat;
@@ -57,6 +60,23 @@ public class ArticleDetailActivity extends AppCompatActivity {
         tvTitle = findViewById(R.id.tvTitle);
         tvContent = findViewById(R.id.tvContent);
         tvDateTime = findViewById(R.id.tvDateTime);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                break;
+            case R.id.menu_share:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

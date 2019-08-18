@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CenterInside;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.techhousestudio.pyayhistory.R;
 import com.techhousestudio.pyayhistory.models.Article;
@@ -29,10 +30,16 @@ import java.util.List;
 
 public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Article> articleList;
+    private  List<Article> articleList;
 
-    public ArticleRecyclerViewAdapter(List<Article> items) {
-        articleList = items;
+
+
+    public void setArticleList(List<Article> articleList) {
+        this.articleList = articleList;
+    }
+
+    public List<Article> getArticleList() {
+        return articleList;
     }
 
     @NonNull
@@ -54,7 +61,7 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
         Glide.with(holder.itemView.getContext())
                 .load(article.imageUri)
                 .placeholder(R.drawable.pyay)
-                .transform(new CenterCrop(), new RoundedCorners(20))
+                .transform(new CenterInside(), new RoundedCorners(20))
                 .into(holder.ivImageUri);
 
 
@@ -66,13 +73,18 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
             goDetail.putExtra("article", article);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ActivityOptions options = ActivityOptions
-                        .makeSceneTransitionAnimation((Activity) view.getContext(),
-                                Pair.create(holder.ivImageUri, "article-image"),
-                                Pair.create(holder.tvContent, "article-content"),
-                                Pair.create(holder.tvDateTime, "article-datetime"));
+//                ActivityOptions options = ActivityOptions
+//                        .makeSceneTransitionAnimation((Activity) view.getContext(),
+//                                Pair.create(holder.ivImageUri, "article-image"),
+//                                Pair.create(holder.tvContent, "article-content"),
+//                                Pair.create(holder.tvDateTime, "article-datetime"));
+
 //
+                // single
+                ActivityOptions options = ActivityOptions
+                        .makeSceneTransitionAnimation((Activity) view.getContext(), holder.ivImageUri, "article-image");
                 view.getContext().startActivity(goDetail, options.toBundle());
+
 //                view.getContext().startActivity(goDetail,
 //                        ActivityOptions.makeSceneTransitionAnimation((Activity) view.getContext()).toBundle());
             } else {
@@ -83,6 +95,9 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
 
     @Override
     public int getItemCount() {
+        if (articleList == null) {
+            return 0;
+        }
         return articleList.size();
     }
 

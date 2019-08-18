@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,10 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.techhousestudio.pyayhistory.R;
 import com.techhousestudio.pyayhistory.adapters.ArticleRecyclerViewAdapter;
 import com.techhousestudio.pyayhistory.adapters.OnListFragmentInteractionListener;
+import com.techhousestudio.pyayhistory.database.ArticleAppDatabase;
 import com.techhousestudio.pyayhistory.models.Article;
+
+import java.util.List;
+import java.util.concurrent.Executors;
 
 public class ArticleListFragment extends Fragment {
 
+    ArticleAppDatabase appDatabase;
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
 
@@ -42,6 +49,7 @@ public class ArticleListFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+        appDatabase = ArticleAppDatabase.getInstance(requireActivity());
     }
 
     @Override
@@ -63,7 +71,17 @@ public class ArticleListFragment extends Fragment {
         }
 
 
-        articleList.setAdapter(new ArticleRecyclerViewAdapter(Article.articles));
+
+        ArticleRecyclerViewAdapter articleAdapter = new ArticleRecyclerViewAdapter();
+        articleList.setAdapter(articleAdapter);
+
+        LiveData<List<Article>> articles = appDatabase.ArticleDao().getAllArticle();
+        articles.observe(requireActivity(), new Observer<List<Article>>() {
+            @Override
+            public void onChanged(List<Article> articles) {
+                articleAdapter.setArticleList(articles);
+            }
+        });
 
 
         return view;

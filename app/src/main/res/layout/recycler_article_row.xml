@@ -13,6 +13,7 @@
         android:layout_centerVertical="true"
         android:transitionName="article-image"
         android:contentDescription="@string/article_image"
+        android:backgroundTint="@color/colorAccent"
         android:scaleType="centerInside"
         android:src="@drawable/pyay" />
 
