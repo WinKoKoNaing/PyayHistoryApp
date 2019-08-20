@@ -15,4 +15,10 @@
     <string name="menu_send">Send</string>
     <string name="article_image">Article Image</string>
     <string name="content">The second point is important. Even if you do not use the compat vector functionality yourself, you need to follow this post as if you do, since AppCompat requires it.</string>
+    <string name="setting">Setting</string>
+
+    <string-array name="color">
+        <item>Red</item>
+        <item>Green</item>
+    </string-array>
 </resources>

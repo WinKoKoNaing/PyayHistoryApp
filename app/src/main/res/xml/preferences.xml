@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        app:fragment="com.techhousestudio.pyayhistory.ui.MessageFragment"
+        app:icon="@drawable/ic_menu_share"
+        app:title="Message" />
+
+    <Preference
+        app:fragment="com.techhousestudio.pyayhistory.ui.SyncFragment"
+        android:icon="@drawable/ic_drawer_setting"
+        app:title="Sync" />
+</PreferenceScreen>

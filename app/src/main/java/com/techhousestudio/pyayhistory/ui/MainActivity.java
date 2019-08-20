@@ -1,5 +1,8 @@
-package com.techhousestudio.pyayhistory;
+package com.techhousestudio.pyayhistory.ui;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -13,6 +16,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.techhousestudio.pyayhistory.R;
 import com.techhousestudio.pyayhistory.ui.ArticleListFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -20,8 +24,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -48,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // init setup
         navigationView.setCheckedItem(R.id.nav_home);
         getSupportActionBar().setTitle("Home");
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragContainer, ArticleListFragment.newInstance(1)).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragContainer, ArticleListFragment.newInstance(1)).commit();
 
 
         navigationView.setNavigationItemSelectedListener(this);
@@ -92,9 +100,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         Fragment currentFragment = null;
         int id = item.getItemId();
-
         if (id == R.id.nav_home) {
             currentFragment = ArticleListFragment.newInstance(1);
+        } else if (id == R.id.nav_setting) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                startActivity(new Intent(MainActivity.this, SettingActivity.class), ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+            }else {
+                startActivity(new Intent(MainActivity.this, SettingActivity.class));
+            }
         }
 
         if (currentFragment != null) {
@@ -104,4 +117,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

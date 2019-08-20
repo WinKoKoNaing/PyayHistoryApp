@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference android:title="Sync email" />
+    <SwitchPreference
+        android:summary="djflkajdlfjlsdfj"
+        android:title="Download .." />
+    <ListPreference android:title="App color" android:entries="@array/color"/>
+</PreferenceScreen>

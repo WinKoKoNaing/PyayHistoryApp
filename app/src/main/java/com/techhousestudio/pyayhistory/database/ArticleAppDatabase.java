@@ -30,15 +30,9 @@ public abstract class ArticleAppDatabase extends RoomDatabase {
                                 @Override
                                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
                                     super.onCreate(db);
-                                    Executors.newSingleThreadExecutor().execute(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            ArticleAppDatabase
-                                                    .getInstance(application).ArticleDao()
-                                                    .insertArticles(Article.articles);
-                                        }
-                                    });
-
+                                    Executors.newSingleThreadExecutor().execute(() -> ArticleAppDatabase
+                                            .getInstance(application).ArticleDao()
+                                            .insertArticles(Article.articles));
                                 }
                             })
                             .build();

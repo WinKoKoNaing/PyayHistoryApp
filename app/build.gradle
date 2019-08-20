@@ -31,13 +31,24 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'jp.wasabeef:glide-transformations:3.3.0'
 
-    def room_version = "2.2.0-alpha02"
+    // Setting
+    implementation 'androidx.preference:preference:1.1.0-rc01'
 
+
+    def lifecycle_version = "2.0.0"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+
+    def room_version = "2.2.0-alpha02"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
