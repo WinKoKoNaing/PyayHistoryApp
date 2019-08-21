@@ -2,13 +2,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Preference
-        app:fragment="com.techhousestudio.pyayhistory.ui.MessageFragment"
-        app:icon="@drawable/ic_menu_share"
-        app:title="Message" />
+    <EditTextPreference
+        android:icon="@drawable/ic_setting_face"
+        app:key="display_name"
+        app:title="Display Name"
+        app:useSimpleSummaryProvider="true"/>
 
-    <Preference
-        app:fragment="com.techhousestudio.pyayhistory.ui.SyncFragment"
-        android:icon="@drawable/ic_drawer_setting"
-        app:title="Sync" />
+    <ListPreference
+        android:entries="@array/color"
+        android:icon="@drawable/ic_setting_color"
+        android:key="colors"
+        android:entryValues="@array/color_value"
+        app:useSimpleSummaryProvider="true"
+        app:title="Select color" />
 </PreferenceScreen>
