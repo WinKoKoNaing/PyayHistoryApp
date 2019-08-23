@@ -16,14 +16,18 @@
     <string name="article_image">Article Image</string>
     <string name="content">The second point is important. Even if you do not use the compat vector functionality yourself, you need to follow this post as if you do, since AppCompat requires it.</string>
     <string name="setting">Setting</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Search articles</string>
 
     <string-array name="color">
         <item>Red</item>
         <item>Green</item>
+        <item>Default</item>
     </string-array>
 
     <string-array name="color_value">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
 </resources>

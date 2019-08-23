@@ -22,16 +22,21 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
         setContentView(R.layout.activity_setting);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("App Setting");
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
+        // setup SettingFragment
         getSupportFragmentManager().beginTransaction().add(R.id.settingContainer, new SettingFragment()).commit();
 
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this /* Activity context */);
-        String colorIndex = sharedPreferences.getString("colors", "0");
+        String colorIndex = sharedPreferences.getString("colors", "2");
         changeBackgroundColor(colorIndex);
+
     }
 
     @Override
@@ -62,7 +67,7 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
         if (key.equals("colors")) {
-            changeBackgroundColor(sharedPreferences.getString("colors", "0"));
+            changeBackgroundColor(sharedPreferences.getString("colors", "2"));
         }
     }
 
@@ -75,6 +80,8 @@ public class SettingActivity extends AppCompatActivity implements SharedPreferen
             case "1":
                 settingLayout.setBackgroundColor(Color.GREEN);
                 break;
+            case "2":
+                settingLayout.setBackgroundColor(Color.WHITE);
 
         }
     }
