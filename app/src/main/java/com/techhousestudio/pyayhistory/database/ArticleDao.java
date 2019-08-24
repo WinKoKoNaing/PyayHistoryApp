@@ -14,6 +14,9 @@ public interface ArticleDao {
     @Query("Select * from Article")
     LiveData<List<Article>> getAllArticle();
 
+    @Query("Select * from Article where title LIKE '%' || :query || '%'")
+    LiveData<List<Article>> getFilterArticle(String query);
+
     @Insert
     void insertArticles(List<Article> articles);
 

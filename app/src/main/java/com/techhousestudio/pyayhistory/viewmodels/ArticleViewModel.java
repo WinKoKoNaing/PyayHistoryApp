@@ -13,8 +13,6 @@ import com.techhousestudio.pyayhistory.models.Article;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-import timber.log.Timber;
-
 public class ArticleViewModel extends AndroidViewModel {
 
     private ArticleDao articleDao;
@@ -23,16 +21,21 @@ public class ArticleViewModel extends AndroidViewModel {
 
     public ArticleViewModel(@NonNull Application application) {
         super(application);
-        Timber.d("load data from db");
         ArticleAppDatabase appDatabase = ArticleAppDatabase.getInstance(application);
         articleDao = appDatabase.ArticleDao();
-        articleList = articleDao.getAllArticle();
+
     }
 
     public LiveData<List<Article>> getArticleList() {
-        Timber.d("load data from view model");
+        articleList = articleDao.getAllArticle();
         return articleList;
     }
+
+    public LiveData<List<Article>> getArticleFilterListList(String query) {
+        articleList = articleDao.getFilterArticle(query);
+        return articleList;
+    }
+
 
     public void insertArticle(Article a) {
         Executors.newSingleThreadExecutor().execute(new Runnable() {

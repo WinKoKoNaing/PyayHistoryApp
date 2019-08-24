@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Fts4;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
@@ -12,7 +13,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity()
 public class Article implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     public long id;

@@ -10,6 +10,7 @@
 
     <ListPreference
         android:entries="@array/color"
+        android:defaultValue="2"
         android:icon="@drawable/ic_setting_color"
         android:key="colors"
         android:entryValues="@array/color_value"
