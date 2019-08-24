@@ -7,7 +7,7 @@
   - Sqlite with room 
   - Executors
   - ViewModel And LiveData
-  - ButtferKnife Library in SearchableActivity
+  - ButterKnife Library in SearchableActivity
   - Glide Library
   - Material Components
   - AndroidX
