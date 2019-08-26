@@ -26,6 +26,9 @@ import com.techhousestudio.pyayhistory.viewmodels.ArticleViewModel;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import jp.wasabeef.recyclerview.animators.ScaleInTopAnimator;
+import timber.log.Timber;
+
 public class ArticleListFragment extends Fragment {
 
     private ArticleAppDatabase appDatabase;
@@ -81,12 +84,23 @@ public class ArticleListFragment extends Fragment {
         articleViewModel.getArticleList().observe(requireActivity(), new Observer<List<Article>>() {
             @Override
             public void onChanged(List<Article> articles) {
-                articleAdapter.setArticleList(articles);
+                articleAdapter.submitList(articles);
             }
         });
+        articleList.setItemAnimator(new ScaleInTopAnimator());
 
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Timber.i("onDestroyView");
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Timber.i("onDestroy");
+    }
 }

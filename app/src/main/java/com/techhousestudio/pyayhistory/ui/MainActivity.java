@@ -21,6 +21,8 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.navigation.NavigationView;
 import com.techhousestudio.pyayhistory.R;
 
+import timber.log.Timber;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity
         // init setup
         navigationView.setCheckedItem(R.id.nav_home);
         getSupportActionBar().setTitle("Home");
+        Timber.i("onCreateView");
         getSupportFragmentManager().beginTransaction().add(R.id.fragContainer, ArticleListFragment.newInstance(1)).commit();
 
 
@@ -115,6 +118,7 @@ public class MainActivity extends AppCompatActivity
         Fragment currentFragment = null;
         int id = item.getItemId();
         if (id == R.id.nav_home) {
+            Timber.i("onNavigationClick");
             currentFragment = ArticleListFragment.newInstance(1);
         } else if (id == R.id.nav_setting) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

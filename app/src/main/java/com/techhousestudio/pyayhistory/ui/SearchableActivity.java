@@ -1,15 +1,5 @@
 package com.techhousestudio.pyayhistory.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.TransitionManager;
-
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -19,16 +9,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.TransitionManager;
+
 import com.techhousestudio.pyayhistory.R;
 import com.techhousestudio.pyayhistory.adapters.ArticleRecyclerViewAdapter;
-import com.techhousestudio.pyayhistory.models.Article;
 import com.techhousestudio.pyayhistory.viewmodels.ArticleViewModel;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
+import jp.wasabeef.recyclerview.animators.ScaleInTopAnimator;
 
 public class SearchableActivity extends AppCompatActivity {
 
@@ -67,6 +63,8 @@ public class SearchableActivity extends AppCompatActivity {
         article_list.setLayoutManager(new LinearLayoutManager(this));
         articleRecyclerViewAdapter = new ArticleRecyclerViewAdapter();
         article_list.setAdapter(articleRecyclerViewAdapter);
+
+        article_list.setItemAnimator(new ScaleInTopAnimator());
 
         queryFilterArticle(query);
 
@@ -110,7 +108,7 @@ public class SearchableActivity extends AppCompatActivity {
                 emptyLayout.setVisibility(View.GONE);
                 article_list.setVisibility(View.VISIBLE);
             }
-            articleRecyclerViewAdapter.setArticleList(articles);
+            articleRecyclerViewAdapter.submitList(articles);
         });
     }
 

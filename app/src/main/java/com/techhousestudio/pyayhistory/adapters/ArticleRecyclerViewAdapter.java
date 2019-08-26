@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -25,20 +27,13 @@ import com.techhousestudio.pyayhistory.ui.ArticleDetailActivity;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecyclerViewAdapter.ViewHolder> {
-
-    private  List<Article> articleList;
+public class ArticleRecyclerViewAdapter extends ListAdapter<Article, ArticleRecyclerViewAdapter.ViewHolder> {
 
 
-
-    public void setArticleList(List<Article> articleList) {
-        this.articleList = articleList;
-        notifyDataSetChanged();
+    public ArticleRecyclerViewAdapter() {
+        super(diffCallback);
     }
 
-    public List<Article> getArticleList() {
-        return articleList;
-    }
 
     @NonNull
     @Override
@@ -50,7 +45,7 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        Article article = articleList.get(position);
+        Article article = getItem(position);
         holder.tvContent.setText(article.content);
         holder.tvCategory.setText(article.category);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy");
@@ -91,13 +86,13 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
         });
     }
 
-    @Override
-    public int getItemCount() {
-        if (articleList == null) {
-            return 0;
-        }
-        return articleList.size();
-    }
+//    @Override
+//    public int getItemCount() {
+//        if (articleList == null) {
+//            return 0;
+//        }
+//        return articleList.size();
+//    }
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -117,4 +112,18 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
 
 
     }
+
+
+    private static DiffUtil.ItemCallback<Article> diffCallback = new DiffUtil.ItemCallback<Article>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Article oldItem, @NonNull Article newItem) {
+            return oldItem.id == newItem.id;
+        }
+
+        @SuppressLint("DiffUtilEquals")
+        @Override
+        public boolean areContentsTheSame(@NonNull Article oldItem, @NonNull Article newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 }
