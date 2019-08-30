@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -16,31 +15,31 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.techhousestudio.pyayhistory.AppData;
 import com.techhousestudio.pyayhistory.R;
-import com.techhousestudio.pyayhistory.adapters.ArticleRecyclerViewAdapter;
-import com.techhousestudio.pyayhistory.adapters.OnListFragmentInteractionListener;
+import com.techhousestudio.pyayhistory.adapters.MasterRecyclerAdapter;
 import com.techhousestudio.pyayhistory.database.ArticleAppDatabase;
 import com.techhousestudio.pyayhistory.models.Article;
 import com.techhousestudio.pyayhistory.viewmodels.ArticleViewModel;
 
 import java.util.List;
-import java.util.concurrent.Executors;
 
+import jp.wasabeef.recyclerview.animators.ScaleInBottomAnimator;
 import jp.wasabeef.recyclerview.animators.ScaleInTopAnimator;
 import timber.log.Timber;
 
-public class ArticleListFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     private ArticleAppDatabase appDatabase;
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
 
 
-    public ArticleListFragment() {
+    public HomeFragment() {
     }
 
-    public static ArticleListFragment newInstance(int columnCount) {
-        ArticleListFragment fragment = new ArticleListFragment();
+    public static HomeFragment newInstance(int columnCount) {
+        HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -64,7 +63,7 @@ public class ArticleListFragment extends Fragment {
 
         // Set the adapter
         Context context = view.getContext();
-        RecyclerView articleList = (RecyclerView) view;
+        RecyclerView articleList = view.findViewById(R.id.master_list);
 
         articleList.addItemDecoration(new DividerItemDecoration(context, 1));
 
@@ -76,7 +75,8 @@ public class ArticleListFragment extends Fragment {
         }
 
 
-        ArticleRecyclerViewAdapter articleAdapter = new ArticleRecyclerViewAdapter();
+        MasterRecyclerAdapter articleAdapter = new MasterRecyclerAdapter(getContext());
+        articleList.setNestedScrollingEnabled(true);
         articleList.setAdapter(articleAdapter);
 
         ArticleViewModel articleViewModel = ViewModelProviders.of(requireActivity()).get(ArticleViewModel.class);
@@ -84,10 +84,12 @@ public class ArticleListFragment extends Fragment {
         articleViewModel.getArticleList().observe(requireActivity(), new Observer<List<Article>>() {
             @Override
             public void onChanged(List<Article> articles) {
-                articleAdapter.submitList(articles);
+
+//                articleAdapter.setObjectList(articles);
             }
         });
-        articleList.setItemAnimator(new ScaleInTopAnimator());
+        articleAdapter.setObjectList(AppData.getMasterData());
+//        articleList.setItemAnimator(new ScaleInBottomAnimator());
 
         return view;
     }

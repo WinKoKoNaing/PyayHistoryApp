@@ -19,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.TransitionManager;
 
 import com.techhousestudio.pyayhistory.R;
-import com.techhousestudio.pyayhistory.adapters.ArticleRecyclerViewAdapter;
+import com.techhousestudio.pyayhistory.adapters.ArticleRecyclerAdapter;
+import com.techhousestudio.pyayhistory.adapters.MasterRecyclerAdapter;
+import com.techhousestudio.pyayhistory.models.Article;
 import com.techhousestudio.pyayhistory.viewmodels.ArticleViewModel;
 
 import butterknife.BindView;
@@ -38,7 +40,7 @@ public class SearchableActivity extends AppCompatActivity {
     @BindView(R.id.article_list)
     RecyclerView article_list;
     private String query;
-    private ArticleRecyclerViewAdapter articleRecyclerViewAdapter;
+    private ArticleRecyclerAdapter masterRecyclerAdapter;
     private ArticleViewModel articleViewModel;
 
     @Override
@@ -61,8 +63,8 @@ public class SearchableActivity extends AppCompatActivity {
         articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel.class);
 
         article_list.setLayoutManager(new LinearLayoutManager(this));
-        articleRecyclerViewAdapter = new ArticleRecyclerViewAdapter();
-        article_list.setAdapter(articleRecyclerViewAdapter);
+        masterRecyclerAdapter = new ArticleRecyclerAdapter(Article.LINEARLAYOUT);
+        article_list.setAdapter(masterRecyclerAdapter);
 
         article_list.setItemAnimator(new ScaleInTopAnimator());
 
@@ -108,7 +110,7 @@ public class SearchableActivity extends AppCompatActivity {
                 emptyLayout.setVisibility(View.GONE);
                 article_list.setVisibility(View.VISIBLE);
             }
-            articleRecyclerViewAdapter.submitList(articles);
+            masterRecyclerAdapter.submitList(articles);
         });
     }
 

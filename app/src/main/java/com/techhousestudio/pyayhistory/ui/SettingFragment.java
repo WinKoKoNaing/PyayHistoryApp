@@ -12,7 +12,7 @@ public class SettingFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
-        EditTextPreference displayName = findPreference("display_name");
-        ListPreference colorList = findPreference("colors");
+//        EditTextPreference displayName = findPreference("display_name");
+//        ListPreference colorList = findPreference("colors");
     }
 }

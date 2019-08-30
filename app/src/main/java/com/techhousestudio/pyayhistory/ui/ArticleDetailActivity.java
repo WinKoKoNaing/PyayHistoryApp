@@ -39,7 +39,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
     }
 
     private void bindData(Article article) {
-//        tvTitle.setText(article.title);
+//        tvTitle.setText(article.name);
         tvTitle.setVisibility(View.GONE);
         getSupportActionBar().setTitle(article.title);
         tvContent.setText(article.content);

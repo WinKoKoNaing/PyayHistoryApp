@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -42,8 +45,11 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'jp.wasabeef:glide-transformations:3.3.0'
 
+    // ViewPagerIndicator
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:3.0.3'
     // Setting
-    implementation 'androidx.preference:preference:1.1.0-rc01'
+    def preference_version = "1.1.0-rc01"
+    implementation "androidx.preference:preference:$preference_version"
 
     // Recycler Animation
     implementation 'jp.wasabeef:recyclerview-animators:3.0.0'

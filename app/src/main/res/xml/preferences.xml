@@ -5,7 +5,7 @@
     <EditTextPreference
         android:icon="@drawable/ic_setting_face"
         app:key="display_name"
-        app:title="Display Name"
+        android:title="Display Name"
         app:useSimpleSummaryProvider="true"/>
 
     <ListPreference
@@ -15,5 +15,5 @@
         android:key="colors"
         android:entryValues="@array/color_value"
         app:useSimpleSummaryProvider="true"
-        app:title="Select color" />
+        android:title="Select color" />
 </PreferenceScreen>
